@@ -97,10 +97,11 @@ for p in health("daily-sleep-temperature-derivations",
                 f'daily_sleep_temperature_derivations.date < "{end}"'):
     v = p.get("dailySleepTemperatureDerivations") or {}
     if not v.get("date"): continue
+    # Google returns these as float OR string depending on the day - cast both.
     rel = v.get("relativeTemperatureCelsius")
     if rel is None and v.get("nightlyTemperatureCelsius") is not None \
        and v.get("baselineTemperatureCelsius") is not None:
-        rel = v["nightlyTemperatureCelsius"] - v["baselineTemperatureCelsius"]
+        rel = float(v["nightlyTemperatureCelsius"]) - float(v["baselineTemperatureCelsius"])
     if rel is not None:
         days.setdefault(d2s(v["date"]), {})["_skin"] = round(float(rel), 2)
 
