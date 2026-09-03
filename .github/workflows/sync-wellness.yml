@@ -1,0 +1,31 @@
+name: Sync wellness to intervals.icu
+
+on:
+  schedule:
+    # Every 3 hours. Deliberately not a single daily run: it is DST-proof, and because
+    # writes are idempotent a repeat costs nothing while a missed run heals itself.
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Days to backfill'
+        required: false
+        default: '14'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync
+        env:
+          GOOGLE_CLIENT_ID:     ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          ICU_KEY:              ${{ secrets.ICU_KEY }}
+          ICU_ATHLETE:          ${{ secrets.ICU_ATHLETE }}
+          DAYS:                 ${{ github.event.inputs.days || '14' }}
+        run: python3 sync_wellness.py
