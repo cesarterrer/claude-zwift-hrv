@@ -1,0 +1,17 @@
+{
+ "generated_at": "2026-09-04T13:03:12+00:00",
+ "for_date": "2026-09-04",
+ "ftp_watts": 195,
+ "todays_ride": null,
+ "baselines": {
+  "hrv_mean": 41.0,
+  "hrv_sd": 5.1,
+  "restingHR_good_max": 50,
+  "restingHR_overreach_min": 51.5,
+  "sleep_hours_mean": 7.9,
+  "deep_sleep_min_mean": 68
+ },
+ "days": [],
+ "health_included": false,
+ "health_note": "Recovery metrics are deliberately not published here - this repo is public. The morning brief reads them directly from the Google Health API instead."
+}

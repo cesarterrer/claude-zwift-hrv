@@ -15,6 +15,8 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,3 +31,15 @@ jobs:
           ICU_ATHLETE:          ${{ secrets.ICU_ATHLETE }}
           DAYS:                 ${{ github.event.inputs.days || '14' }}
         run: python3 sync_wellness.py
+      - name: Publish snapshot for the morning brief
+        env:
+          ICU_KEY:     ${{ secrets.ICU_KEY }}
+          ICU_ATHLETE: ${{ secrets.ICU_ATHLETE }}
+        run: python3 publish_snapshot.py
+      - name: Commit snapshot if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add wellness-latest.json
+          git diff --staged --quiet || git commit -m "Update snapshot for the morning brief"
+          git push
