@@ -1,8 +1,13 @@
 {
- "generated_at": "2026-09-04T22:41:40+00:00",
- "for_date": "2026-09-04",
+ "generated_at": "2026-09-05T02:19:57+00:00",
+ "for_date": "2026-09-05",
  "ftp_watts": 195,
- "todays_ride": null,
+ "todays_ride": {
+  "name": "Endurance 90 \u2014 Z2 baseline",
+  "minutes": 90,
+  "tss": 62,
+  "workout": "Warmup\n\n- 12m ramp 45-62%\n\nEndurance \u2014 conversational the whole way\n\n- 30m 62-72%\n\nCadence 100-105 rpm, same power\n\n3x\n- 4m 66%\n- 2m 62%\n\nEndurance\n\n- 25m 62-72%\n\nCooldown\n\n- 5m 45%"
+ },
  "baselines": {
   "hrv_mean": 41.0,
   "hrv_sd": 5.1,
